@@ -54,7 +54,6 @@
             label1.Size = new Size(104, 21);
             label1.TabIndex = 0;
             label1.Text = "Player Wins:";
-            label1.Click += label1_Click;
             // 
             // label2
             // 
