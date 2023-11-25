@@ -33,7 +33,15 @@ namespace Tic_Tac_Toe_WinForms
 
         private void PlayerClickButton(object sender, EventArgs e)
         {
-            
+            var button = (Button)sender;
+
+            currentPlayer = Player.X;
+            button.Text = currentPlayer.ToString();
+            button.Enabled = false;
+            button.BackColor = Color.Cyan;
+            buttons.Remove(button);
+            CheckGame();
+            CPUTimer.Start();
         }
 
         private void RestartGame(object sender, EventArgs e)
