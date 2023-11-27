@@ -28,7 +28,7 @@ namespace TicTacToeWPF
 
         private bool IsGridFull()
         {
-            return TurnsPassed == 0;
+            return TurnsPassed == 9;
         }
 
         private void SwitchPlayer()
