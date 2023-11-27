@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:TictacToeWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="BackgroundColor" Color="DarkOrange"/>        
+        <SolidColorBrush x:Key="ButtonColor" Color="Orange"/>        
+        <SolidColorBrush x:Key="LineColor" Color="Blue"/>        
     </Application.Resources>
 </Application>
