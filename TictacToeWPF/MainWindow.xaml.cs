@@ -60,6 +60,7 @@ namespace TicTacToeWPF
             WinnerImage.Source = winnerImage;
             EndScreen.Visibility = Visibility.Visible;
         }
+
         private void OnMoveMade(int r, int c)
         {
             Player player = gameState.GameGrid[r,c];
@@ -67,9 +68,18 @@ namespace TicTacToeWPF
             PlayerImage.Source = imageSources[gameState.CurrentPlayer];
         }
 
-        private void OnGameEnded(GameResult gameResult)
+        private async void OnGameEnded(GameResult gameResult)
         {
+            await Task.Delay(1000);
 
+            if (gameResult.Winner == Player.None)
+            {
+                TransitionToEndScreen("It's a tie!", null);
+            }
+            else 
+            {
+                TransitionToEndScreen("Winner:", imageSources[gameResult.Winner]);
+            }
         }
 
         private void OnGameRestarted() 
