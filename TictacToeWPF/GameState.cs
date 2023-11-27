@@ -13,7 +13,7 @@ namespace TicTacToeWPF
         public event Action<GameResult> GameEnded;
         public event Action GameRestarted;
 
-        public GameState()
+        public GameState() 
         {
             GameGrid = new Player[3, 3];
             CurrentPlayer = Player.X;
@@ -22,7 +22,7 @@ namespace TicTacToeWPF
         }
 
         private bool CanMakeMove(int r, int c)
-        {
+         {
             return !GameOver && GameGrid[r, c] == Player.None;
         }
 
@@ -81,6 +81,24 @@ namespace TicTacToeWPF
             }
 
             winInfo = null;
+            return false;
+        }
+
+        private bool DidMoveEndGame(int r, int c, out GameResult gameResult)
+        {
+            if (DidMoveWin(r, c, out WinInfo winInfo))
+            {
+                gameResult = new GameResult { Winner = CurrentPlayer, WinInfo = winInfo };
+                return true;
+            }
+
+            if (IsGridFull())
+            {
+                gameResult = new GameResult { Winner = Player.None };
+                return true;
+            }
+
+            gameResult = null;
             return false;
         }
     }
