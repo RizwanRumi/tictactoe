@@ -33,6 +33,10 @@ namespace TicTacToeWPF
         {
             InitializeComponent();
             SetupGameGrid();
+
+            gameState.MoveMade += OnMoveMade;
+            gameState.GameEnded += OnGameEnded;
+            gameState.GameRestarted += OnGameRestarted;
         }
 
         private void SetupGameGrid()
@@ -48,9 +52,38 @@ namespace TicTacToeWPF
             }
         }
 
-        private void GameGrid_MouseDown(object sender, MouseEventArgs e)
+        private void TransitionToEndScreen(string text, ImageSource winnerImage)
+        {
+            TurnPanel.Visibility = Visibility.Hidden;
+            GameCanvas.Visibility = Visibility.Hidden;
+            ResultText.Text = text;
+            WinnerImage.Source = winnerImage;
+            EndScreen.Visibility = Visibility.Visible;
+        }
+        private void OnMoveMade(int r, int c)
+        {
+            Player player = gameState.GameGrid[r,c];
+            imageControls[r, c].Source = imageSources[player];
+            PlayerImage.Source = imageSources[gameState.CurrentPlayer];
+        }
+
+        private void OnGameEnded(GameResult gameResult)
         {
 
+        }
+
+        private void OnGameRestarted() 
+        {
+
+        }
+
+        private void GameGrid_MouseDown(object sender, MouseEventArgs e)
+        {
+            double squareSize = GameGrid.Width / 3;
+            Point clickPoistion = e.GetPosition(GameGrid);
+            int row = (int)(clickPoistion.Y / squareSize);
+            int col = (int)(clickPoistion.X / squareSize);
+            gameState.MakeMove(row, col);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) 
