@@ -101,6 +101,31 @@ namespace TicTacToeWPF
             gameResult = null;
             return false;
         }
+
+        public void MakeMove(int r, int c)
+        {
+            if (!CanMakeMove(r, c))
+            {
+                return;
+            }
+
+            GameGrid[r, c] = CurrentPlayer;
+            TurnsPassed++;
+
+            if (DidMoveEndGame(r, c, out GameResult gameResult))
+            {
+                GameOver = true;
+                MoveMade?.Invoke(r, c);
+                GameEnded?.Invoke(gameResult);
+            }
+            else
+            {
+                SwitchPlayer();
+                MoveMade?.Invoke(r, c);
+            }
+        }
+
+
     }
 }
  
